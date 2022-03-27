@@ -37,6 +37,45 @@ void Print(Stu *ps) // 局部变量是指针，拷贝仅占用8个字节
     printf("%s\n", ps->sex);
 }
 
+int count_bit_one(unsigned int a)
+{
+    int count = 0;
+    while (a)
+    {
+        if (a % 2 == 1)
+        {
+            count++;
+        }
+        a /= 2;
+    }
+    return count;
+}
+
+int count_bit_one2(int a)
+{
+    int count = 0;
+    for (int i = 0; i < 32; i++)
+    {
+        if ((a >> i) & 1 == 1)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+int count_bit_one3(int a)
+{
+    int count = 0;
+    while (a)
+    {
+        a = a & (a - 1);
+        count++;
+    }
+
+    return count;
+}
+
 int main()
 {
     // struct Stu s = {"xiaowang", 18, "12031133563", "女性"};
@@ -54,5 +93,34 @@ int main()
     printf("\n");
 
     Print(&s);
+
+    printf("\n");
+    printf("---------------------\n");
+    printf("\n");
+
+    // 写一个函数，求a的二进制（补码）中1的个数
+    int a = 13;
+    // 1101
+    int ret = count_bit_one(a);
+    printf("%d\n", ret);
+    a = -1;
+    ret = count_bit_one(a);
+    printf("%d\n", ret);
+
+    a = 13;
+    ret = count_bit_one2(a);
+    printf("%d\n", ret);
+
+    a = -1;
+    ret = count_bit_one2(a);
+    printf("%d\n", ret);
+
+    a = 13;
+    ret = count_bit_one3(a);
+    printf("%d\n", ret);
+
+    a = -1;
+    ret = count_bit_one3(a); // 最简洁
+    printf("%d\n", ret);
     return 0;
 }
